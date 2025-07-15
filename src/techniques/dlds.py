@@ -56,6 +56,7 @@ def simulate(
 
         # 1. predict values from buffer
         y_pred = predictor.predict(buffer)[0]
+        y_pred = y_pred[:window_config.ts]
         inferences_count += 1
 
         # 2. compute individual errors of each predicted value
