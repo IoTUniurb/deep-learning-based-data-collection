@@ -1,5 +1,6 @@
 from . import logger
 from .window import WindowConfig
+from .dataset_loader import DatasetLoader
 from os.path import join
 import pandas as pd
 import numpy as np
@@ -10,8 +11,8 @@ class Dataset:
     def __init__(
         self,
         name: str,
-        # TODO: Decide if we need to remove default value for `base_path` like other paths.
-        base_path: str = "datasets",
+        base_path: str,
+        loader: DatasetLoader,
         normalize: bool = False,
         smooth: int = 4,
     ):
@@ -30,6 +31,7 @@ class Dataset:
         self._dataset_path = join(base_path, self._ds_name)
         self._normalize = normalize
         self._smooth = smooth
+        self._ds_loader = loader
 
         self.__load_dataset()
 
@@ -74,7 +76,12 @@ class Dataset:
         """
         Return the name of the dataset in a format readable to humans.
         """
-        return self._ds_name.split(".")[0]
+        addition = self._ds_loader.name_addition()
+        basename = self._ds_name.split(".")[0]
+        if addition != "":
+            return f"{basename} {addition}"
+        else:
+            return basename
 
     def train_test_split(
         self,
@@ -144,15 +151,12 @@ class Dataset:
 
     def __load_dataset(self):
         """
-        Loads a time series dataset from a CSV file.
-        Assumes the CSV is created by InfluxDB and contains at least the columns: '_time' and '_value'.
+        Loads a time series dataset using a DatasetLoader.
         """
-        # TODO: This function does NOT WORK with unprocessed datasets.
-        data = pd.read_csv(self._dataset_path)
-        self._full_data_df = data[["_time", "_value"]]
-        self._full_data_df = self._full_data_df[:-1]
-        self._full_data_df = self._full_data_df.set_index("_time")
-        self._logger.debug(f"load dataset from '{self._dataset_path}'")
+        self._full_data_df = self._ds_loader.load(self._dataset_path)
+        self._logger.debug(
+            f"load dataset from '{self._dataset_path}' using loader {self._ds_loader}"
+        )
         self._logger.debug(f"dataset shape: {self._full_data_df.shape}")
 
     def __smooth(self):

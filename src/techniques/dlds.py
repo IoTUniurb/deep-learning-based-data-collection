@@ -19,6 +19,21 @@ def simulate(
     realign: str,
     alpha: float = 1.0,
 ):
+    """
+    Run a simulation of the DLDS algorithm on a given dataset.
+
+    Parameters
+    ----------
+    dataset (Dataset): Dataset to use for the simulation.
+    output_path (str): Directory where the simulation metrics are saved.
+    predictor (BasePredictor): Predictor.
+    window_config (WindowConfig): Window configuration parameters.
+    error (int): Allowed relative error (percentage).
+    seed (int): Random seed used to split the dataset.
+    realign (str): Realignment strategy for buffer update.
+        Can be one of: ["simple-append", "lerp"]
+    alpha (float): Scaling factor for the "scaled-distance" strategy. Default is 1.0.
+    """
     _logger.info(f"simulate DLDS technique using parameters:")
     _logger.info(f"  dataset       = '{dataset.name()}'")
     _logger.info(f"  predictor     = '{predictor.name()}'")
@@ -56,7 +71,7 @@ def simulate(
 
         # 1. predict values from buffer
         y_pred = predictor.predict(buffer)[0]
-        y_pred = y_pred[:window_config.ts]
+        y_pred = y_pred[: window_config.ts]
         inferences_count += 1
 
         # 2. compute individual errors of each predicted value
@@ -98,18 +113,18 @@ def simulate(
                         buffer = np.roll(buffer, -1)
                         buffer[:, -1] = y_pred[i]
                     buffer[:, -1] = y_real
-                case 'lerp':
+                case "lerp":
                     # update buffer by putting ts pred values
                     for i in range(window_config.ts):
                         buffer = np.roll(buffer, -1)
                         buffer[:, -1] = y_pred[i]
                     buffer[:, -1] = y_real
-                    
+
                     p1 = buffer[0][0][0]
                     p2 = buffer[0][-1][0]
-                    omega = (p2-p1)/(window_config.ws-1)
+                    omega = (p2 - p1) / (window_config.ws - 1)
                     for i in range(window_config.ws):
-                        buffer[:,i] = p1 + i * omega
+                        buffer[:, i] = p1 + i * omega
                 case _:
                     _logger.fatal(f"unknown realign parameter '{realign}'")
                     raise Exception(f"unknown realign parameter '{realign}'")

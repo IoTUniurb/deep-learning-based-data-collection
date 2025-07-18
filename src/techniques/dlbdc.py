@@ -20,6 +20,21 @@ def simulate(
     realign: str,
     alpha: float = 1.0,
 ):
+    """
+    Run a simulation of the DLBDC algorithm on a given dataset.
+
+    Parameters
+    ----------
+    dataset (Dataset): Dataset to use for the simulation.
+    output_path (str): Directory where the simulation metrics are saved.
+    predictor (BasePredictor): Predictor.
+    window_config (WindowConfig): Window configuration parameters.
+    error (int): Allowed relative error (percentage).
+    seed (int): Random seed used to split the dataset.
+    realign (str): Realignment strategy for buffer update.
+        Can be one of: ["simple-append", "scaled-distance"]
+    alpha (float): Scaling factor for the "scaled-distance" strategy. Default is 1.0.
+    """
     _logger.info(f"simulate technique using parameters:")
     _logger.info(f"  dataset       = '{dataset.name()}'")
     _logger.info(f"  predictor     = '{predictor.name()}'")

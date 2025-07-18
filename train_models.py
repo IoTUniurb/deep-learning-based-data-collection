@@ -1,4 +1,10 @@
 from src.dataset import Dataset
+from src.dataset_loader import (
+    NoWeekLoader,
+    WeatherLoader,
+    TrafficLoader,
+    ElectricityLoader,
+)
 from src.training import train_models
 from src.window import WindowConfig
 
@@ -9,7 +15,7 @@ MODELS_PARAM = {
     # "model1": {
     #     "lstm_units": 10,
     #     "epochs": 100,  # 20
-    #     "batch_size": 64,
+    #     "batch_size": 32,
     # },
     # "model2": {
     #     "filters": 45,
@@ -20,7 +26,6 @@ MODELS_PARAM = {
     # },
     "model3": {
         "lstm_units": 10,
-        # 'lstm_units': 7,
         "dense": 30,
         "epochs": 100,
         "batch_size": 32,
@@ -37,18 +42,29 @@ MODELS_PARAM = {
     #     'epochs': 30
     # }
 }
-SEEDS = [69]  # 42,69,911,2020,42069]
-WS = [5]#[3, 5, 7, 10, 15, 40]
-TS = [1]#,5,7,10,15]
+SEEDS = [69]  # [42, 69, 911, 2020, 42069]
+WS = [5]  # [3, 5, 7, 10, 15, 40]
+TS = [2, 3, 5, 7]  # [2, 3, 5, 7, 10, 15]
 DATASET_NAMES = [
-    "co2_peano_no_weekend.csv",
-    "pm2p5_peano_no_weekend.csv",
-    "rad_peano_no_weekend.csv",
-    "noise_peano_no_weekend.csv",
+    ("co2_peano_no_weekend.csv", NoWeekLoader()),
+    ("pm2p5_peano_no_weekend.csv", NoWeekLoader()),
+    ("rad_peano_no_weekend.csv", NoWeekLoader()),
+    ("noise_peano_no_weekend.csv", NoWeekLoader()),
+    # ("weather.csv", WeatherLoader("T (degC)")),
+    # ("weather.csv", WeatherLoader("rh (%)")),
+    # ("weather.csv", WeatherLoader("wv (m/s)")),
+    # ("weather.csv", WeatherLoader("SWDR (W/m�)")),
+    # ("traffic.csv", TrafficLoader()),
+    # ("electricity.csv", ElectricityLoader()),
 ]
 
-for dataset_name in DATASET_NAMES:
-    ds = Dataset(dataset_name, base_path=DATASET_DIR)
+for dataset_name, dataset_loader in DATASET_NAMES:
+    ds = Dataset(
+        name=dataset_name,
+        base_path=DATASET_DIR,
+        loader=dataset_loader,
+        smooth=None,
+    )
     for seed in SEEDS:
         for ws in WS:
             for ts in TS:
