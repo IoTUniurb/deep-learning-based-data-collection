@@ -1,0 +1,7 @@
+colorama==0.4.6
+keras==2.14.0
+matplotlib==3.8.4
+numpy @ file:///rapids/lib/numpy-1.24.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=7ffe43c74893dbf38c2b0a1f5428760a1a9c98285553c89e12d70a96a7f3a4d6
+scikit-learn @ file:///rapids/lib/scikit_learn-1.2.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=184a42842a4e698ffa4d849b6019de50a77a0aa24d26afa28fa49c9190bb144b
+scipy @ file:///rapids/lib/scipy-1.11.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=933baf588daa8dc9a92c20a0be32f56d43faf3d1a60ab11b3f08c356430f6e56
+tensorflow @ file:///tmp/pip/tensorflow-2.14.0%2Bnv24.1-cp310-cp310-linux_x86_64.whl#sha256=d50c8bd71be83b11b493969fa6467f177ab4d3397a10cae24c7e2e522c156255
