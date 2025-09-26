@@ -1,5 +1,5 @@
 from src.dataset import Dataset, to_supervised
-from src.dataset_loader import WeatherLoader, TrafficLoader, ElectricityLoader
+from src.dataset_loader import NoWeekLoader, WeatherLoader, TrafficLoader, ElectricityLoader
 from src.ml_model import get_model_path
 from src.window import WindowConfig
 import matplotlib.pyplot as plt
@@ -11,16 +11,16 @@ DATASET_DIR = "/home/l.calisti/notebooks/dlds_paper/datasets"
 MODELS_DIR = "/home/l.calisti/notebooks/dlds_paper/models"
 OUTPUT_DIR = "/home/l.calisti/notebooks/dlds_paper/outputs"
 DATASET_NAMES = [
-    # ("co2_peano_no_weekend.csv", NoWeekLoader()),
-    # ("pm2p5_peano_no_weekend.csv", NoWeekLoader()),
-    # ("rad_peano_no_weekend.csv", NoWeekLoader()),
-    # ("noise_peano_no_weekend.csv", NoWeekLoader()),
-    # ("weather.csv", WeatherLoader("T (degC)")),
-    # ("weather.csv", WeatherLoader("rh (%)")),
-    # ("weather.csv", WeatherLoader("wv (m/s)")),
-    # ("weather.csv", WeatherLoader("SWDR (W/m�)")),
-    # ("traffic.csv", TrafficLoader()),
-    ("electricity.csv", ElectricityLoader()),
+    ("noweekend/co2_peano_no_weekend.csv", NoWeekLoader()),
+    # ("noweekend/pm2p5_peano_no_weekend.csv", NoWeekLoader()),
+    # ("noweekend/rad_peano_no_weekend.csv", NoWeekLoader()),
+    # ("noweekend/noise_peano_no_weekend.csv", NoWeekLoader()),
+    # ("external/weather.csv", WeatherLoader("T (degC)")),
+    # ("external/weather.csv", WeatherLoader("rh (%)")),
+    # ("external/weather.csv", WeatherLoader("wv (m/s)")),
+    # ("external/weather.csv", WeatherLoader("SWDR (W/m�)")),
+    # ("external/traffic.csv", TrafficLoader()),
+    # ("external/electricity.csv", ElectricityLoader()),
 ]
 SEED = 69
 dbp_window_size = 20

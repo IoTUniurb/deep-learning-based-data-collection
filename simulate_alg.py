@@ -21,16 +21,16 @@ TS = [1, 2]
 ERRORS = [3]  # [1, 3, 5, 7, 10]
 ALPHAS = [0.5, 1.0, 1.0, 1.0]  # [0.25, 0.40, 0.50, 0.75, 0.90, 1.0]
 DATASET_NAMES = [
-    ("co2_peano_no_weekend.csv", NoWeekLoader()),
-    ("pm2p5_peano_no_weekend.csv", NoWeekLoader()),
-    ("rad_peano_no_weekend.csv", NoWeekLoader()),
-    ("noise_peano_no_weekend.csv", NoWeekLoader()),
-    # ("weather.csv", WeatherLoader("T (degC)")),
-    # ("weather.csv", WeatherLoader("rh (%)")),
-    # ("weather.csv", WeatherLoader("wv (m/s)")),
-    # ("weather.csv", WeatherLoader("SWDR (W/m�)")),
-    # ("traffic.csv", TrafficLoader()),
-    # ("electricity.csv", ElectricityLoader()),
+    ("noweekend/co2_peano_no_weekend.csv", NoWeekLoader()),
+    ("noweekend/pm2p5_peano_no_weekend.csv", NoWeekLoader()),
+    ("noweekend/rad_peano_no_weekend.csv", NoWeekLoader()),
+    ("noweekend/noise_peano_no_weekend.csv", NoWeekLoader()),
+    # ("external/weather.csv", WeatherLoader("T (degC)")),
+    # ("external/weather.csv", WeatherLoader("rh (%)")),
+    # ("external/weather.csv", WeatherLoader("wv (m/s)")),
+    # ("external/weather.csv", WeatherLoader("SWDR (W/m�)")),
+    # ("external/traffic.csv", TrafficLoader()),
+    # ("external/electricity.csv", ElectricityLoader()),
 ]
 
 for dataset_name, dataset_loader in DATASET_NAMES:

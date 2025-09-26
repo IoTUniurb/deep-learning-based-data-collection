@@ -10,10 +10,10 @@ DATASETS_FOLDER = "./dataset-new"
 MODELS_FOLDER = "./models-new"
 OUT_FOLDER = "./output"
 DS = [
-    "co2_peano_no_weekend.csv",
-    # 'pm2p5_peano_no_weekend.csv',
-    # 'rad_peano_no_weekend.csv',
-    # 'noise_peano_no_weekend.csv'
+    "noweekend/co2_peano_no_weekend.csv",
+    # 'noweekend/pm2p5_peano_no_weekend.csv',
+    # 'noweekend/rad_peano_no_weekend.csv',
+    # 'noweekend/noise_peano_no_weekend.csv'
 ]
 
 dataset = Dataset(
